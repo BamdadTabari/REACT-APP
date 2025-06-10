@@ -9,41 +9,48 @@ function Home() {
   const [editingPost, setEditingPost] = useState<BlogPost | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
 
-  const handleAddOrUpdate = async (data: { title: string; content: string; category?: string }) => {
+    const handleAddOrUpdate = async (data: { title: string; content: string; category?: string }) => {
     if (editingPost) {
-      const updated = { ...editingPost, ...data };
-      await fetch(`http://localhost:3001/posts/${editingPost.id}`, {
+        const updated = { ...editingPost, ...data };
+        await fetch(`http://localhost:3001/posts/${editingPost.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updated)
-      });
-      setPosts(posts.map(p => (p.id === editingPost.id ? updated : p)));
-      setEditingPost(null);
+        });
+        fetchPosts(); // ✅ گرفتن داده جدید از سرور
+        setEditingPost(null);
     } else {
-      const newPost: BlogPost = { id: Date.now(), ...data };
-      const res = await fetch("http://localhost:3001/posts", {
+        const newPost: BlogPost = { id: Date.now(), ...data };
+        await fetch("http://localhost:3001/posts", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newPost),
-      });
-      const result = await res.json();
-      setPosts([...posts, result]);
+        });
+        fetchPosts(); // ✅ گرفتن داده جدید از سرور
     }
-  };
+    };
 
-  const deletePost = async (id: number) => {
+    const deletePost = async (id: number) => {
     await fetch(`http://localhost:3001/posts/${id}`, { method: "DELETE" });
-    setPosts(posts.filter(p => p.id !== id));
+    fetchPosts(); // ✅ گرفتن داده جدید از سرور
     if (editingPost?.id === id) setEditingPost(null);
-  };
+    };
 
   const filteredPosts = posts.filter(post =>
     post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
     post.content.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+const toggleDarkMode = () => {
+  document.body.classList.toggle('dark');
+};
+
+
   return (
     <div className="container">
+      <button onClick={toggleDarkMode} style={{ marginBottom: '1rem' }}>
+        🌙 تغییر تم
+      </button>
       <h1>📝 وبلاگ من</h1>
       <input
         type="text"
