@@ -2,13 +2,14 @@ import { useEffect, useState } from 'react';
 import type { BlogPost } from '../types';
 
 interface BlogFormProps {
-  onSubmit: (post: { title: string; content: string }) => void;
+  onSubmit: (post: { title: string; content: string , category?: string}) => void;
   initialData: BlogPost | null;
 }
 
 function BlogForm({ onSubmit, initialData }: BlogFormProps) {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const [category, setCategory] = useState('');
 
   useEffect(() => {
     if (initialData) {
@@ -23,9 +24,10 @@ function BlogForm({ onSubmit, initialData }: BlogFormProps) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (title && content) {
-      onSubmit({ title, content });
+      onSubmit({ title, content, category });
       setTitle('');
       setContent('');
+      setCategory('')
     }
   };
 
@@ -36,6 +38,12 @@ function BlogForm({ onSubmit, initialData }: BlogFormProps) {
         placeholder="عنوان"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="دسته‌بندی (اختیاری)"
+        value={category}
+        onChange={(e) => setCategory(e.target.value)}
       />
       <textarea
         placeholder="محتوا"

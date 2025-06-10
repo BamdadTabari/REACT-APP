@@ -61,3 +61,29 @@ button:hover {
 .post p {
   color: #555;
 }
+
+.search-input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+body.dark {
+  background-color: #222;
+  color: #eee;
+}
+body.dark .post {
+  background-color: #333;
+  border-color: #444;
+}
+body.dark input,
+body.dark textarea {
+  background-color: #555;
+  color: #fff;
+  border-color: #666;
+}
+body.dark button {
+  background-color: #0d6efd;
+}
