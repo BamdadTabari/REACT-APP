@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import BlogForm from '../components/BlogForm';
 import BlogList from '../components/BlogList';
 import type { BlogPost } from '../types';
+import { data } from 'react-router-dom';
 
 function Home() {
   const [posts, setPosts] = useState<BlogPost[]>([]);
@@ -9,31 +10,42 @@ function Home() {
   const [searchTerm , setSearchTerm] = useState('')
 
  useEffect(() => {
-  const saved = localStorage.getItem('posts');
-  if (saved) setPosts(JSON.parse(saved));
+  fetch("http://localhost:3001/posts")
+  .then( res => res.json())
+  .then(data => setPosts(data));
 }, []);
 
-useEffect(() => {
-  localStorage.setItem('posts', JSON.stringify(posts));
-}, [posts]);
+ const addPostToServer = async (post : BlogPost) =>{
+    const res = await fetch("http://localhost:3001/posts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body : JSON.stringify(post),
+    })
+    const newPost = await res.json();
+    setPosts(prev => [...prev, newPost]);
+ }
 
-  const handleAddOrUpdate = (post: { title: string; content: string }) => {
-    if (editingPost) {
-      setPosts(posts.map((p) => (p.id === editingPost.id ? { ...editingPost, ...post } : p)));
-      setEditingPost(null);
-    } else {
-      const newPost: BlogPost = {
-        id: Date.now(),
-        ...post,
-      };
-      setPosts([...posts, newPost]);
-    }
-  };
+  const handleAddOrUpdate = async (data: { title: string; content: string; category?: string }) => {
+  if (editingPost) {
+    const updated = { ...editingPost, ...data };
+    await fetch(`http://localhost:3001/posts/${editingPost.id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updated)
+    });
+    setPosts(posts.map(p => (p.id === editingPost.id ? updated : p)));
+    setEditingPost(null);
+  } else {
+    const newPost: BlogPost = { id: Date.now(), ...data };
+    await addPostToServer(newPost);
+  }
+};
 
-  const deletePost = (id: number) => {
-    setPosts(posts.filter((p) => p.id !== id));
-    if (editingPost?.id === id) setEditingPost(null);
-  };
+    const deletePost = async (id: number) => {
+    await fetch(`http://localhost:3001/posts/${id}`, { method: "DELETE" });
+    setPosts(posts.filter(p => p.id !== id));
+    };
+
 
   const filteredPosts = posts.filter((post) =>
     post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
