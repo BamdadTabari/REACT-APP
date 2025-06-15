@@ -4,10 +4,9 @@ import type { BlogPost } from '../types';
 interface BlogListProps {
   posts: BlogPost[];
   onDelete: (id: number) => void;
-  onEdit: (post: BlogPost) => void;
 }
 
-function BlogList({ posts, onDelete, onEdit }: BlogListProps) {
+function BlogList({ posts, onDelete }: BlogListProps) {
   return (
     <div>
       {posts.map((post) => (
@@ -18,7 +17,7 @@ function BlogList({ posts, onDelete, onEdit }: BlogListProps) {
           {post.image && (
             <img src={post.image} alt={post.title} style={{ maxWidth: '100%', marginBottom: '0.5rem' }} />
           )}
-          <button onClick={() => onEdit(post)}>✏️ ویرایش</button>
+          <Link to={`/edit/${post.id}`}><h2>✏️ ویرایش</h2></Link>
           <button onClick={() => onDelete(post.id)}>🗑️ حذف</button>
         </div>
       ))}

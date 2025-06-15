@@ -26,7 +26,6 @@ function Home() {
       });
 
       setPosts(posts.map(p => (p.id === editingPost.id ? updated : p)));
-      setEditingPost(null);
     } else {
       const newPost: Omit<BlogPost, 'id'> = {
         title: data.title,
@@ -83,7 +82,6 @@ function Home() {
       <BlogList
         posts={filteredPosts}
         onDelete={deletePost}
-        onEdit={setEditingPost}
       />
     </div>
   );
