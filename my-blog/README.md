@@ -52,3 +52,4 @@ export default tseslint.config({
   },
 })
 ```
+\n## Dark Mode\n\nUse the theme toggle button in the top-right corner to switch between light and dark styles. Your choice is saved in localStorage.
