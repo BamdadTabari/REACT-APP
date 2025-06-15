@@ -15,6 +15,9 @@ function BlogList({ posts, onDelete, onEdit }: BlogListProps) {
           <Link to={`/post/${post.id}`}><h2>{post.title}</h2></Link>
           <p>{post.content}</p>
           {post.category && <small style={{ color: '#999' }}>دسته‌بندی: {post.category}</small>}
+          {post.image && (
+            <img src={post.image} alt={post.title} style={{ maxWidth: '100%', marginBottom: '0.5rem' }} />
+          )}
           <button onClick={() => onEdit(post)}>✏️ ویرایش</button>
           <button onClick={() => onDelete(post.id)}>🗑️ حذف</button>
         </div>

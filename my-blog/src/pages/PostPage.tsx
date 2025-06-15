@@ -5,23 +5,40 @@ import type { BlogPost } from '../types';
 function PostPage() {
   const { id } = useParams();
   const [post, setPost] = useState<BlogPost | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const saved = localStorage.getItem('posts');
-    if (saved) {
-      const posts: BlogPost[] = JSON.parse(saved);
-      const found = posts.find((p) => p.id === Number(id));
-      setPost(found || null);
-    }
+    fetch(`http://localhost:3001/posts/${id}`)
+      .then(res => {
+        if (!res.ok) {
+          throw new Error("پست پیدا نشد");
+        }
+        return res.json();
+      })
+      .then(data => setPost(data))
+      .catch(err => {
+        console.error(err);
+        setError(err.message);
+      });
   }, [id]);
 
-  if (!post) return <p>پست پیدا نشد</p>;
+  if (error) return <p style={{ color: 'red' }}>{error}</p>;
+  if (!post) return <p>در حال بارگذاری...</p>;
 
   return (
     <div className="container">
       <Link to="/">← بازگشت</Link>
       <h2>{post.title}</h2>
+      {post.image?.startsWith("data:image") && (
+        <img
+          src={post.image}
+          alt={post.title}
+          style={{ maxWidth: '100%', marginBottom: '1rem' }}
+        />
+      )}
+
       <p>{post.content}</p>
+      {post.category && <p><em>دسته‌بندی: {post.category}</em></p>}
     </div>
   );
 }

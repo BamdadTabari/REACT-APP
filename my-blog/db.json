@@ -1,28 +1,11 @@
 {
   "posts": [
     {
-      "id": "1",
-      "title": "اولین پست",
-      "content": "سلام به وبلاگ من",
-      "category": "عمومی"
-    },
-    {
-      "id": 1749577115003,
-      "title": "asda",
-      "content": "d",
-      "category": "dasda"
-    },
-    {
-      "id": 1749577142388,
-      "title": "asdasd",
-      "content": "asda",
-      "category": ""
-    },
-    {
-      "id": 1749578233269,
-      "title": "سشیش",
-      "content": "یسشسیش",
-      "category": "شسیش"
+      "id": "ebb3",
+      "title": "تندت",
+      "content": "تندتند",
+      "category": "تدنت",
+      "image": ""
     }
   ]
 }
