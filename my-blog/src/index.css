@@ -87,3 +87,9 @@ body.dark textarea {
 body.dark button {
   background-color: #0d6efd;
 }
+
+.theme-toggle {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+}
