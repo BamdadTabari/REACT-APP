@@ -1,11 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { vi } from 'vitest';
 import BlogForm from '../components/BlogForm';
 
 describe('BlogForm', () => {
   it('calls onSubmit with form values', async () => {
-    const handleSubmit = vi.fn();
+    const handleSubmit = jest.fn();
     render(<BlogForm onSubmit={handleSubmit} initialData={null} />);
 
     await userEvent.type(screen.getByPlaceholderText('عنوان'), 'title');
