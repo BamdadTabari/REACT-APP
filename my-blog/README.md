@@ -24,6 +24,19 @@ npm install
 npm run dev
 ```
 
+\n## Dark Mode\n\nUse the theme toggle button in the top-right corner to switch between light and dark styles. Your choice is saved in localStorage.
+
+## تنظیم متغیرهای محیطی
+
+برای مشخص کردن آدرس سرور API فایلی به نام `.env` در ریشهٔ پروژه ایجاد کنید و متغیر زیر را در آن قرار دهید:
+
+```bash
+VITE_API_URL=http://localhost:3001
+```
+
+این مقدار در تمام درخواست‌های `fetch` استفاده شده و در صورت نیاز می‌توانید آن را تغییر دهید.
+
+
 برای راه‌اندازی سرور JSON که پست‌ها را مدیریت می‌کند نیز از دستور زیر استفاده می‌شود (معمولاً در یک ترمینال جداگانه):
 
 ```bash
