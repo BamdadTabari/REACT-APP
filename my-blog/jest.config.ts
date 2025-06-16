@@ -5,7 +5,9 @@ const config: Config = {
   testEnvironment: 'jsdom',
   globals: {
     'ts-jest': {
-      useESM: true
+      useESM: true,
+      tsconfig: './tsconfig.test.json'
+
     }
   },
   extensionsToTreatAsEsm: ['.ts', '.tsx'],
