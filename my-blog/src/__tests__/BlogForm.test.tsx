@@ -20,4 +20,15 @@ describe('BlogForm', () => {
       image: '',
     });
   });
+
+  it('shows validation errors when required fields are missing', async () => {
+    const handleSubmit = jest.fn();
+    render(<BlogForm onSubmit={handleSubmit} initialData={null} />);
+
+    await userEvent.click(screen.getByRole('button', { name: /افزودن پست/i }));
+
+    expect(handleSubmit).not.toHaveBeenCalled();
+    expect(screen.getByText('عنوان الزامی است')).toBeInTheDocument();
+    expect(screen.getByText('محتوا الزامی است')).toBeInTheDocument();
+  });
 });
