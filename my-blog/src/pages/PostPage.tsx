@@ -8,7 +8,7 @@ function PostPage() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch(`http://localhost:3001/posts/${id}`)
+    fetch(`${import.meta.env.VITE_API_URL}/posts/${id}`)
       .then(res => {
         if (!res.ok) {
           throw new Error("پست پیدا نشد");

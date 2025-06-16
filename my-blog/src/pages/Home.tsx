@@ -19,7 +19,7 @@ function Home() {
         image: data.image || '',
       };
 
-      await fetch(`http://localhost:3001/posts/${editingPost.id}`, {
+      await fetch(`${import.meta.env.VITE_API_URL}/posts/${editingPost.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updated),
@@ -34,7 +34,7 @@ function Home() {
         image: data.image || '',
       };
       
-      const res = await fetch('http://localhost:3001/posts', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/posts`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newPost),
@@ -46,7 +46,7 @@ function Home() {
   };
 
   const deletePost = async (id: number) => {
-    const res = await fetch(`http://localhost:3001/posts/${id}`, {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/posts/${id}`, {
       method: 'DELETE',
     });
 
