@@ -9,13 +9,13 @@ export default function EditPost(){
     const [post, setPost] = useState(null);
 
     useEffect(() => {
-        fetch(`http://localhost:3001/posts/${id}`)
+        fetch(`${import.meta.env.VITE_API_URL}/posts/${id}`)
           .then(res => res.json())
           .then(data => setPost(data));
       }, [id]);
 
       const handleUpdate = (updatedPost: any) => {
-        fetch(`http://localhost:3001/posts/${id}`, {
+        fetch(`${import.meta.env.VITE_API_URL}/posts/${id}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(updatedPost),

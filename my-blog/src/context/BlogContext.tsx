@@ -13,7 +13,7 @@ export const BlogProvider = ({ children }: { children: React.ReactNode }) => {
   const [posts, setPosts] = useState<BlogPost[]>([]);
 
   const fetchPosts = () => {
-    fetch("http://localhost:3001/posts")
+    fetch(`${import.meta.env.VITE_API_URL}/posts`)
       .then(res => res.json())
       .then(data => setPosts(data));
   };
