@@ -1,57 +1,29 @@
-# React + TypeScript + Vite
+# وبلاگ ساده با React
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+این پروژه یک وبلاگ کوچک است که با استفاده از **React**، **TypeScript** و **Vite** ساخته شده است. امکانات اصلی شامل موارد زیر است:
 
-Currently, two official plugins are available:
+- ایجاد، ویرایش و حذف پست‌ها
+- مشاهده‌ی جزئیات هر پست
+- جستجو در میان پست‌ها
+- احراز هویت ساده برای ورود مدیر
+- امکان تغییر حالت تیره/روشن و ذخیره‌سازی آن در مرورگر
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+داده‌های وبلاگ توسط **JSON Server** نگهداری می‌شوند و در فایل `db.json` ذخیره می‌شوند.
 
-## Expanding the ESLint configuration
+## نصب و اجرا
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+ابتدا به پوشه‌ی پروژه رفته و وابستگی‌ها را نصب کنید:
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+سپس برای اجرای محیط توسعهٔ فرانت‌اند دستور زیر را بزنید:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+npm run dev
 ```
+
 \n## Dark Mode\n\nUse the theme toggle button in the top-right corner to switch between light and dark styles. Your choice is saved in localStorage.
 
 ## تنظیم متغیرهای محیطی
@@ -63,3 +35,23 @@ VITE_API_URL=http://localhost:3001
 ```
 
 این مقدار در تمام درخواست‌های `fetch` استفاده شده و در صورت نیاز می‌توانید آن را تغییر دهید.
+
+
+برای راه‌اندازی سرور JSON که پست‌ها را مدیریت می‌کند نیز از دستور زیر استفاده می‌شود (معمولاً در یک ترمینال جداگانه):
+
+```bash
+npm run backend
+```
+
+## ساختار پوشه‌ها
+
+- `src/` – کدهای اصلی برنامه
+  - `components/` – کامپوننت‌های قابل استفاده مجدد مانند `BlogForm` و `BlogList`
+  - `pages/` – صفحات اصلی نظیر صفحه‌ی خانه، صفحه‌ی پست و صفحه‌ی ورود
+  - `context/` – مدیریت وضعیت‌هایی مانند احراز هویت، تم و پست‌ها
+  - `assets/` – فایل‌های ثابت و تصاویر
+- `public/` – فایل‌هایی که بدون پردازش در خروجی قرار می‌گیرند
+- `db.json` – پایگاه داده‌ی JSON Server برای ذخیره‌ی پست‌ها
+- `package.json` – اسکریپت‌ها و وابستگی‌های پروژه
+
+برای ایجاد نسخه‌ی نهایی می‌توانید `npm run build` را اجرا کنید.
