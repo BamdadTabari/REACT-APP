@@ -7,7 +7,7 @@ import { useBlog } from '../context/BlogContext';
 function Home() {
   const { posts, setPosts } = useBlog();
   const [editingPost, setEditingPost] = useState<BlogPost | null>(null);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState<string>('');
 
   const handleAddOrUpdate = async (data: BlogPostInput) => {
     if (editingPost) {

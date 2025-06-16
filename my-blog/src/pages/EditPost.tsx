@@ -1,12 +1,13 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import BlogForm from "../components/BlogForm";
+import BlogForm, { type BlogPostInput } from "../components/BlogForm";
+import type { BlogPost } from "../types";
 
 
 export default function EditPost(){
     const {id} =useParams();
     const navigate = useNavigate();
-    const [post, setPost] = useState(null);
+    const [post, setPost] = useState<BlogPost | null>(null);
 
     useEffect(() => {
         fetch(`http://localhost:3001/posts/${id}`)
@@ -14,7 +15,7 @@ export default function EditPost(){
           .then(data => setPost(data));
       }, [id]);
 
-      const handleUpdate = (updatedPost: any) => {
+      const handleUpdate = (updatedPost: BlogPostInput) => {
         fetch(`http://localhost:3001/posts/${id}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
